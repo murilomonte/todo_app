@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_provider/views/home_page.dart';
-import 'package:todo_provider/views/settings_page.dart';
+import 'package:todo_provider/views/profile_page.dart';
 
 class Navigation extends StatefulWidget {
   const Navigation({super.key});
@@ -32,13 +32,13 @@ class _NavigationState extends State<Navigation> {
             label: 'Home',
           ),
           NavigationDestination(
-            icon: Icon(Icons.settings_outlined),
-            selectedIcon: Icon(Icons.settings),
-            label: 'Settings',
+            icon: Icon(Icons.person_outlined),
+            selectedIcon: Icon(Icons.person),
+            label: 'Profile',
           )
         ],
       ),
-      body: [HomePage(), SettingsPage()][counter],
+      body: [HomePage(), ProfilePage()][counter],
     );
   }
 }

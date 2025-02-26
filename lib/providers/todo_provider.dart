@@ -5,9 +5,11 @@ class TodoProvider extends ChangeNotifier {
   // taks
   final List<TaskItem> _pendingTasks = [];
   final List<TaskItem> _completedTasks = [];
+  double _points = 0;
 
   List<TaskItem> get pendingTasks => _pendingTasks;
   List<TaskItem> get completedTasks => _completedTasks;
+  double get points => _points;
 
   // Adiciona uma task
   void addTask({
@@ -47,11 +49,13 @@ class TodoProvider extends ChangeNotifier {
       TaskItem task = _pendingTasks.removeAt(index);
       task.completed = true;
       _completedTasks.add(task);
+      _points += task.points;
     } else if (index < _completedTasks.length &&
         _completedTasks[index].id == id) {
       TaskItem task = _completedTasks.removeAt(index);
       task.completed = false;
       pendingTasks.add(task);
+      _points -= task.points;
     }
     notifyListeners();
   }
