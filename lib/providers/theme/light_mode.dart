@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// To:Do
+// Usar a paleta do luma
+
 // ThemeData lightMode = ThemeData(
+//   fontFamily: GoogleFonts.poppins().fontFamily,
 //   colorScheme: ColorScheme.light(
-//     primary: const Color.fromARGB(255, 63, 178, 255),
-//     onPrimary: Colors.white,
-//     secondary: const Color(0xFFDBDFE7),
+//     primary: const Color(0xFF2190A4),
+//     onPrimary: const Color(0xFFF5F5F5),
 //     onSecondary: const Color(0xFF2E3133),
+//     secondary: const Color.fromARGB(255, 183, 214, 220),
 //     error: Colors.red.shade200,
 //     onError: Colors.black,
 //     surface: const Color(0xFFfafafa),
 //     onSurface: const Color(0xFF2E3133),
+
+//     surfaceContainer: const Color(0xFFEDEDED)
 //   ),
 // );
 
@@ -42,7 +48,8 @@ ThemeData lightMode = ThemeData(
       onError: Color(0xffffffff),
       errorContainer: Color(0xffffdad6),
       onErrorContainer: Color(0xff93000a),
-      surface: Color(0xfff9f9ff),
+      // surface: Color(0xfff9f9ff),
+      surface: Colors.white,
       onSurface: Color(0xff191c20),
       onSurfaceVariant: Color(0xff43474e),
       outline: Color(0xff74777f),
@@ -67,8 +74,8 @@ ThemeData lightMode = ThemeData(
       surfaceBright: Color(0xfff9f9ff),
       surfaceContainerLowest: Color(0xffffffff),
       surfaceContainerLow: Color(0xfff3f3fa),
-      surfaceContainer: Color(0xffededf4),
-      surfaceContainerHigh: Color(0xffe7e8ee),
-      surfaceContainerHighest: Color(0xffe2e2e9),
+      surfaceContainer: Color(0xffF5F5F5),
+      surfaceContainerHigh: Color(0xffF5F5F5),
+      surfaceContainerHighest: Color(0xffF5F5F5),
   ),
 );

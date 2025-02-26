@@ -1,6 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// To:Do
+// Usar a paleta do luma
+
+// ThemeData darkMode = ThemeData(
+//   fontFamily: GoogleFonts.poppins().fontFamily,
+//   colorScheme: ColorScheme.dark(
+//     // background is deprecated
+//     primary: Colors.white,
+//     onPrimary: const Color(0xFF212121),
+//     secondary: Colors.grey.shade800,
+//     onSecondary: Colors.white,
+//     error: Colors.red.shade900,
+//     onError: Colors.white,
+//     surface: const Color(0xFF242424),
+//     onSurface: Colors.white,
+//   ),
+// );
+
+
 ThemeData darkMode = ThemeData(
   useMaterial3: true,
   fontFamily: GoogleFonts.poppins().fontFamily,
@@ -29,7 +48,7 @@ ThemeData darkMode = ThemeData(
     onError: Color(0xff690005),
     errorContainer: Color(0xff93000a),
     onErrorContainer: Color(0xffffdad6),
-    surface: Color(0xff111318),
+    surface: Color(0xFF111111),
     onSurface: Color(0xffe2e2e9),
     onSurfaceVariant: Color(0xffc4c6cf),
     outline: Color(0xff8e9099),
@@ -54,22 +73,8 @@ ThemeData darkMode = ThemeData(
     surfaceBright: Color(0xff37393e),
     surfaceContainerLowest: Color(0xff0c0e13),
     surfaceContainerLow: Color(0xff191c20),
-    surfaceContainer: Color(0xff1d2024),
-    surfaceContainerHigh: Color(0xff282a2f),
-    surfaceContainerHighest: Color(0xff33353a),
+    surfaceContainer: Color(0xFF1C1C1C), // c11
+    surfaceContainerHigh: Color(0xFF1C1C1C), // c11
+    surfaceContainerHighest: Color(0xFF1C1C1C) // c11
   ),
 );
-
-// ThemeData darkMode = ThemeData(
-//   colorScheme: ColorScheme.dark(
-//     // background is deprecated
-//     primary: Colors.white,
-//     onPrimary: const Color(0xFF212121),
-//     secondary: Colors.grey.shade800,
-//     onSecondary: Colors.white,
-//     error: Colors.red.shade900,
-//     onError: Colors.white,
-//     surface: const Color(0xFF242424),
-//     onSurface: Colors.white,
-//   ),
-// );
