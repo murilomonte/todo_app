@@ -15,21 +15,30 @@ class _NavigationState extends State<Navigation> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: NavigationBar(
+        //labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
         onDestinationSelected: (value) {
           setState(() {
             counter = value;
           });
         },
+        indicatorShape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
         selectedIndex: counter,
         destinations: [
-          NavigationDestination(icon: Icon(Icons.home_outlined) , selectedIcon: Icon(Icons.home), label: 'Home'),
-          NavigationDestination(icon: Icon(Icons.settings_outlined) , selectedIcon: Icon(Icons.settings), label: 'Settings'),
+          NavigationDestination(
+            icon: Icon(Icons.home_outlined),
+            selectedIcon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.settings_outlined),
+            selectedIcon: Icon(Icons.settings),
+            label: 'Settings',
+          )
         ],
       ),
-      body: [
-        HomePage(),
-        SettingsPage(),
-      ][counter],
+      body: [HomePage(), SettingsPage()][counter],
     );
   }
 }

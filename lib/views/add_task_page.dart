@@ -37,7 +37,7 @@ class _AddtaskPageState extends State<AddtaskPage> {
                       'Task name',
                       style: TextStyle(
                         fontSize: 15,
-                        fontWeight: FontWeight.w300,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     SizedBox(height: 5),
@@ -59,7 +59,7 @@ class _AddtaskPageState extends State<AddtaskPage> {
                       'Description',
                       style: TextStyle(
                         fontSize: 15,
-                        fontWeight: FontWeight.w300,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     SizedBox(height: 5),
@@ -78,7 +78,7 @@ class _AddtaskPageState extends State<AddtaskPage> {
               SizedBox(height: 20),
               Text(
                 'Pontuação',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w300),
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10),
               Row(
@@ -99,7 +99,7 @@ class _AddtaskPageState extends State<AddtaskPage> {
                       },
                     ),
                   ),
-                  Expanded(flex: 2, child: Text('${_points.toInt()} pontos')),
+                  Expanded(flex: 2, child: Text('${_points.toInt()} pts', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold))),
                 ],
               ),
               SizedBox(height: 20),

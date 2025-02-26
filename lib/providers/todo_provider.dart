@@ -12,7 +12,7 @@ class TodoProvider extends ChangeNotifier {
   // Adiciona uma task
   void addTask({
     String? title,
-    String? description = 'Without description.',
+    String? description,
     double? points = 0,
   }) {
     // Overengineering? Maybe

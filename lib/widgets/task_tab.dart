@@ -20,7 +20,7 @@ class TaskTab extends StatelessWidget {
       return Center(child: Text('Add some tasks!'));
     }
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: 5,
@@ -66,22 +66,32 @@ class TaskItem extends StatelessWidget {
         showModalBottomSheet(
           showDragHandle: true,
           context: context,
+          useRootNavigator: true,
+          useSafeArea: true,
           isScrollControlled: true,
           builder: (BuildContext context) {
-            return TaskInfoBottomSheet(tasks: tasks, index: index, todoProvider: todoProvider);
+            return TaskInfoBottomSheet(
+              tasks: tasks,
+              index: index,
+              todoProvider: todoProvider,
+            );
           },
         );
       },
       child: Card.filled(
+        margin: EdgeInsets.all(0),
         color: Theme.of(context).colorScheme.surfaceContainer,
         child: ListTile(
           // leading: Icon(Icons.task_alt),
           title: Text(tasks[index].name),
-          subtitle: Text(
-            tasks[index].description,
-            style: TextStyle(fontSize: 11),
-            overflow: TextOverflow.ellipsis,
-          ),
+          subtitle:
+              tasks[index].description != ''
+                  ? Text(
+                    tasks[index].description,
+                    style: TextStyle(fontSize: 11),
+                    overflow: TextOverflow.ellipsis,
+                  )
+                  : Text('Click to show info', style: TextStyle(fontSize: 11)),
           trailing: Checkbox(
             value: tasks[index].completed,
             onChanged:
