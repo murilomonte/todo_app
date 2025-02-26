@@ -10,10 +10,22 @@ class TodoProvider extends ChangeNotifier {
   List<TaskItem> get completedTasks => _completedTasks;
 
   // add task
-  void addTask(String value) {
+  void addTask({
+    String? title,
+    String? description = 'Without description.',
+    int? points = 0,
+  }) {
     // Overengineering? Maybe
     Uuid id = Uuid();
-    _pendingTasks.add(TaskItem(id: id.v1(), name: value, completed: false));
+    _pendingTasks.add(
+      TaskItem(
+        id: id.v1(),
+        name: title!,
+        description: description!,
+        points: points!,
+        completed: false,
+      ),
+    );
     notifyListeners();
   }
 
@@ -37,6 +49,14 @@ class TodoProvider extends ChangeNotifier {
 class TaskItem {
   String id;
   String name;
+  String description;
+  int points;
   bool completed;
-  TaskItem({required this.id, required this.name, required this.completed});
+  TaskItem({
+    required this.id,
+    required this.name,
+    required this.description,
+    required this.points,
+    required this.completed,
+  });
 }

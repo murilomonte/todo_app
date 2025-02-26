@@ -19,7 +19,7 @@ class TaskTab extends StatelessWidget {
       return Center(child: Text('Add some tasks!'));
     }
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: 5,
@@ -31,19 +31,40 @@ class TaskTab extends StatelessWidget {
             child: ListView.builder(
               itemCount: tasks.length,
               itemBuilder: (context, index) {
-                return Card(
-                  child: ListTile(
-                    title: Text(tasks[index].name),
-                    trailing: Checkbox(
-                      value: tasks[index].completed,
-                      onChanged: (value) => todoProvider.toggleTask(index, tasks[index].id)
-                    ),
-                  ),
-                );
+                return TaskItem(tasks: tasks, todoProvider: todoProvider, index: index);
               },
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class TaskItem extends StatelessWidget {
+  const TaskItem({
+    super.key,
+    required this.tasks,
+    required this.todoProvider,
+    required this.index,
+  });
+
+  final List tasks;
+  final TodoProvider todoProvider;
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card.filled(
+      color: Theme.of(context).colorScheme.surfaceContainer,
+      child: ListTile(
+        // leading: Icon(Icons.task_alt),
+        title: Text(tasks[index].name),
+        subtitle: Text('Lorem ipsum dolor sit amet lorem ipsum dolor sit amet l.', style: TextStyle(fontSize: 11, ),),
+        trailing: Checkbox(
+          value: tasks[index].completed,
+          onChanged: (value) => todoProvider.toggleTask(index, tasks[index].id)
+        ),
       ),
     );
   }

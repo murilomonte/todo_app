@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_provider/widgets/add_task_modal.dart';
+import 'package:todo_provider/views/add_task_page.dart';
 import 'package:todo_provider/widgets/task_tab.dart';
 
 class HomePage extends StatelessWidget {
@@ -27,12 +27,7 @@ class HomePage extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return AddTaskModal();
-              },
-            );
+            Navigator.push(context, MaterialPageRoute(builder: (context) => AddtaskPage(),));
           },
           label: Text('Add task'),
           icon: Icon(Icons.add),
