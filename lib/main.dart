@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_provider/providers/theme/theme_provider.dart';
 import 'package:todo_provider/providers/todo_provider.dart';
 import 'package:todo_provider/views/navigation.dart';
 
 void main() {
+
+  WidgetsFlutterBinding.ensureInitialized();
+  // make navigation bar transparent
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(systemNavigationBarColor: Colors.transparent),
+  );
+  // make flutter draw behind navigation bar
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+
   runApp(
     MultiProvider(
       providers: [
