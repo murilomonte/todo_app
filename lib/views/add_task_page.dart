@@ -135,8 +135,8 @@ class _AddtaskPageState extends State<AddtaskPage> {
                           final todo = context.read<TodoProvider>();
                           todo.addTask(
                             title: _titleController.text,
-                            description: '',
-                            points: 0,
+                            description: _descController.text,
+                            points: _points,
                           );
                           Navigator.pop(context);
                         }

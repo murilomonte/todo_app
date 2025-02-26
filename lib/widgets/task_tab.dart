@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_provider/providers/todo_provider.dart';
+import 'package:todo_provider/widgets/task_info_bottom_sheet.dart';
 
 class TaskTab extends StatelessWidget {
   final bool pending;
@@ -31,7 +32,11 @@ class TaskTab extends StatelessWidget {
             child: ListView.builder(
               itemCount: tasks.length,
               itemBuilder: (context, index) {
-                return TaskItem(tasks: tasks, todoProvider: todoProvider, index: index);
+                return TaskItem(
+                  tasks: tasks,
+                  todoProvider: todoProvider,
+                  index: index,
+                );
               },
             ),
           ),
@@ -55,15 +60,33 @@ class TaskItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card.filled(
-      color: Theme.of(context).colorScheme.surfaceContainer,
-      child: ListTile(
-        // leading: Icon(Icons.task_alt),
-        title: Text(tasks[index].name),
-        subtitle: Text('Lorem ipsum dolor sit amet lorem ipsum dolor sit amet l.', style: TextStyle(fontSize: 11, ),),
-        trailing: Checkbox(
-          value: tasks[index].completed,
-          onChanged: (value) => todoProvider.toggleTask(index, tasks[index].id)
+    return InkWell(
+      radius: 15,
+      onTap: () {
+        showModalBottomSheet(
+          showDragHandle: true,
+          context: context,
+          isScrollControlled: true,
+          builder: (BuildContext context) {
+            return TaskInfoBottomSheet(tasks: tasks, index: index, todoProvider: todoProvider);
+          },
+        );
+      },
+      child: Card.filled(
+        color: Theme.of(context).colorScheme.surfaceContainer,
+        child: ListTile(
+          // leading: Icon(Icons.task_alt),
+          title: Text(tasks[index].name),
+          subtitle: Text(
+            tasks[index].description,
+            style: TextStyle(fontSize: 11),
+            overflow: TextOverflow.ellipsis,
+          ),
+          trailing: Checkbox(
+            value: tasks[index].completed,
+            onChanged:
+                (value) => todoProvider.toggleTask(index, tasks[index].id),
+          ),
         ),
       ),
     );

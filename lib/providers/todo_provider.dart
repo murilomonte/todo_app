@@ -9,11 +9,11 @@ class TodoProvider extends ChangeNotifier {
   List<TaskItem> get pendingTasks => _pendingTasks;
   List<TaskItem> get completedTasks => _completedTasks;
 
-  // add task
+  // Adiciona uma task
   void addTask({
     String? title,
     String? description = 'Without description.',
-    int? points = 0,
+    double? points = 0,
   }) {
     // Overengineering? Maybe
     Uuid id = Uuid();
@@ -29,7 +29,18 @@ class TodoProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // mark task as completed
+  // Deleta uma task
+  void deleteTask(int index, String id) {
+    if (index < _pendingTasks.length && _pendingTasks[index].id == id) {
+      _pendingTasks.removeAt(index);
+    } else if (index < _completedTasks.length &&
+        _completedTasks[index].id == id) {
+      _completedTasks.removeAt(index);
+    }
+    notifyListeners();
+  }
+
+  // Trasita as taks entre listas
   void toggleTask(int index, String id) {
     // verifica se a task foi completada ou não. Com base nisso, transita para outra lista de tarefas
     if (index < _pendingTasks.length && _pendingTasks[index].id == id) {
@@ -50,7 +61,7 @@ class TaskItem {
   String id;
   String name;
   String description;
-  int points;
+  double points;
   bool completed;
   TaskItem({
     required this.id,
