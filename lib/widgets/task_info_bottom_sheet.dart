@@ -1,18 +1,23 @@
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_provider/providers/todo_provider.dart';
 
 class TaskInfoBottomSheet extends StatelessWidget {
   const TaskInfoBottomSheet({
     super.key,
-    required this.tasks,
-    required this.index,
-    required this.todoProvider,
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.points,
+    required this.status,
   });
 
-  final List tasks;
-  final int index;
-  final TodoProvider todoProvider;
+  final int id;
+  final String title;
+  final String description;
+  final double points;
+  final int status;
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +31,11 @@ class TaskInfoBottomSheet extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                tasks[index].name,
+                title,
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               SizedBox(height: 10),
-              if (tasks[index].description != '') Row(
+              if (description != '') Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Icon(
@@ -48,8 +53,8 @@ class TaskInfoBottomSheet extends StatelessWidget {
                   ),
                 ],
               ),
-              if (tasks[index].description != '') Text(tasks[index].description),
-              if (tasks[index].description != '') SizedBox(height: 10),
+              if (description != '') Text(description),
+              if (description != '') SizedBox(height: 10),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -68,7 +73,7 @@ class TaskInfoBottomSheet extends StatelessWidget {
                   ),
                 ],
               ),
-              Text('${tasks[index].points.toInt()} pontos'),
+              Text('${points.toInt()} pontos'),
               SizedBox(height: 25),
               Row(
                 spacing: 20,
@@ -79,7 +84,7 @@ class TaskInfoBottomSheet extends StatelessWidget {
                         padding: EdgeInsets.symmetric(vertical: 15),
                       ),
                       onPressed: () {
-                        todoProvider.deleteTask(index, tasks[index].id);
+                        Provider.of<TodoProvider>(context, listen: false).deleteTask(id);
                         Navigator.pop(context);
                       },
                       icon: Icon(Icons.close),
@@ -92,7 +97,7 @@ class TaskInfoBottomSheet extends StatelessWidget {
                         padding: EdgeInsets.symmetric(vertical: 15),
                       ),
                       onPressed: () {
-                        todoProvider.toggleTask(index, tasks[index].id);
+                        Provider.of<TodoProvider>(context, listen: false).toggleTask(id, status == 1 ? 0 : 1);
                         Navigator.pop(context);
                       },
                       icon: Icon(Icons.task_alt_rounded),

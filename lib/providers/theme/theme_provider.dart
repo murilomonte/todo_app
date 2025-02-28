@@ -4,8 +4,8 @@ import 'package:todo_provider/providers/theme/light_mode.dart';
 
 class ThemeProvider extends ChangeNotifier {
   // iniciamente no lightmode
-  ThemeData _themeData = lightMode;
-
+  // ThemeData _themeData = lightMode;
+  ThemeData _themeData = darkMode;
 
   // Getter
   get themeData => _themeData;

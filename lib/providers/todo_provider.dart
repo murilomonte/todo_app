@@ -1,77 +1,61 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
+import 'package:todo_provider/models/task_model.dart';
+import 'package:todo_provider/services/database_service.dart';
 
 class TodoProvider extends ChangeNotifier {
-  // taks
-  final List<TaskItem> _pendingTasks = [];
-  final List<TaskItem> _completedTasks = [];
-  double _points = 0;
+  TodoProvider(){
+    updateTaskList();
+  }
 
-  List<TaskItem> get pendingTasks => _pendingTasks;
-  List<TaskItem> get completedTasks => _completedTasks;
-  double get points => _points;
+  final DatabaseService _databaseService = DatabaseService.instance;
+
+  // taks
+  List<TaskModel> _tasks = [];
+
+  List<TaskModel> get pendingTasks {
+    log('[run] -> pendingTasks');
+    return _tasks.where((item) => item.status == 0).toList();
+  }
+
+  List<TaskModel> get completedTasks {
+    log('[run] -> completedTasks');
+    return _tasks.where((item) => item.status == 1).toList();
+  }
+
+  // Obtém as tasks
+  Future<void> updateTaskList() async {
+    _tasks = await _databaseService.getTasks();
+    log('[run] -> updateTaskList');
+    notifyListeners();
+  }
 
   // Adiciona uma task
-  void addTask({
-    String? title,
-    String? description,
-    double? points = 0,
-  }) {
-    // Overengineering? Maybe
-    Uuid id = Uuid();
-    _pendingTasks.add(
-      TaskItem(
-        id: id.v1(),
-        name: title!,
-        description: description!,
-        points: points!,
-        completed: false,
-      ),
+  void addTask({String? title, String? description, double? points = 0}) async {
+    await _databaseService.addTask(
+      title: title,
+      description: description,
+      points: points,
     );
+    log('[run] -> addTaskList');
+    await updateTaskList();
     notifyListeners();
   }
 
   // Deleta uma task
-  void deleteTask(int index, String id) {
-    if (index < _pendingTasks.length && _pendingTasks[index].id == id) {
-      _pendingTasks.removeAt(index);
-    } else if (index < _completedTasks.length &&
-        _completedTasks[index].id == id) {
-      _completedTasks.removeAt(index);
-    }
+  void deleteTask(int id) async {
+    _databaseService.deleteTask(id);
+    log('[run] -> deleteTask');
+    await updateTaskList();
     notifyListeners();
   }
 
   // Trasita as taks entre listas
-  void toggleTask(int index, String id) {
-    // verifica se a task foi completada ou não. Com base nisso, transita para outra lista de tarefas
-    if (index < _pendingTasks.length && _pendingTasks[index].id == id) {
-      TaskItem task = _pendingTasks.removeAt(index);
-      task.completed = true;
-      _completedTasks.add(task);
-      _points += task.points;
-    } else if (index < _completedTasks.length &&
-        _completedTasks[index].id == id) {
-      TaskItem task = _completedTasks.removeAt(index);
-      task.completed = false;
-      pendingTasks.add(task);
-      _points -= task.points;
-    }
+  void toggleTask(int id, int status) async {
+    _databaseService.updateTaskStatus(id, status);
+    log('[run] -> toggleTask');
+    await updateTaskList();
     notifyListeners();
   }
-}
-
-class TaskItem {
-  String id;
-  String name;
-  String description;
-  double points;
-  bool completed;
-  TaskItem({
-    required this.id,
-    required this.name,
-    required this.description,
-    required this.points,
-    required this.completed,
-  });
 }

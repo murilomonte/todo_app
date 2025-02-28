@@ -14,29 +14,35 @@ class _NavigationState extends State<Navigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: NavigationBar(
-        //labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-        onDestinationSelected: (value) {
-          setState(() {
-            counter = value;
-          });
-        },
-        indicatorShape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+      bottomNavigationBar: NavigationBarTheme(
+        data: NavigationBarThemeData(
+         // indicatorColor: const Color.fromARGB(255, 50, 50, 50) -> mudar depois
         ),
-        selectedIndex: counter,
-        destinations: [
-          NavigationDestination(
-            icon: Icon(Icons.home_outlined),
-            selectedIcon: Icon(Icons.home),
-            label: 'Home',
+        child: NavigationBar(
+          //labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+          onDestinationSelected: (value) {
+            setState(() {
+              counter = value;
+            });
+          },
+          indicatorShape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
           ),
-          NavigationDestination(
-            icon: Icon(Icons.person_outlined),
-            selectedIcon: Icon(Icons.person),
-            label: 'Profile',
-          )
-        ],
+          selectedIndex: counter,
+          labelPadding: EdgeInsets.all(1),
+          destinations: [
+            NavigationDestination(
+              icon: Icon(Icons.home_outlined),
+              selectedIcon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.person_outlined),
+              selectedIcon: Icon(Icons.person),
+              label: 'Profile',
+            )
+          ],
+        ),
       ),
       body: [HomePage(), ProfilePage()][counter],
     );

@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_provider/models/task_model.dart';
 import 'package:todo_provider/providers/todo_provider.dart';
-import 'package:todo_provider/widgets/task_info_bottom_sheet.dart';
+import 'package:todo_provider/widgets/task_item.dart';
 
 class TaskTab extends StatelessWidget {
   final bool pending;
@@ -10,15 +13,7 @@ class TaskTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Guarda uma instância de TodoProvider
-    TodoProvider todoProvider = context.watch<TodoProvider>();
-    // Define qual lista usar dependendo do caso
-    List tasks =
-        pending ? todoProvider.pendingTasks : todoProvider.completedTasks;
-
-    if (tasks.isEmpty) {
-      return Center(child: Text('Add some tasks!'));
-    }
+    Provider.of<TodoProvider>(context, listen: false).updateTaskList();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
@@ -28,17 +23,33 @@ class TaskTab extends StatelessWidget {
           SizedBox(height: 10),
           // Task list
           Expanded(
-            // Constrói uma lista de itens com base na lista de tasks
-            child: ListView.builder(
-              itemCount: tasks.length,
-              itemBuilder: (context, index) {
-                return TaskItem(
-                  tasks: tasks,
-                  todoProvider: todoProvider,
-                  index: index,
-                );
-              },
-            ),
+            child: Consumer<TodoProvider>(
+                builder: (context, value, child) {
+                  // TODO: o consumer tá sendo chamado várias vezes
+                  log('[run] -> consumer<TodoProvider>');
+
+                  List<TaskModel> tasks =
+                      pending ? value.pendingTasks : value.completedTasks;
+
+                  if (tasks.isEmpty) {
+                    return Center(child: Text('Add some tasks!'));        
+                  }      
+
+                  // Constrói uma lista de itens com base na lista de tasks
+                  return ListView.builder(
+                    itemCount: tasks.length,
+                    itemBuilder: (context, index) {
+                      return TaskItem(
+                        id: tasks[index].id,
+                        title: tasks[index].title,
+                        description: tasks[index].description,
+                        points: tasks[index].points,
+                        status: tasks[index].status,
+                      );
+                    },
+                  );
+                },
+              ),
           ),
         ],
       ),
@@ -46,59 +57,5 @@ class TaskTab extends StatelessWidget {
   }
 }
 
-class TaskItem extends StatelessWidget {
-  const TaskItem({
-    super.key,
-    required this.tasks,
-    required this.todoProvider,
-    required this.index,
-  });
 
-  final List tasks;
-  final TodoProvider todoProvider;
-  final int index;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      radius: 15,
-      onTap: () {
-        showModalBottomSheet(
-          showDragHandle: true,
-          context: context,
-          useRootNavigator: true,
-          useSafeArea: true,
-          isScrollControlled: true,
-          builder: (BuildContext context) {
-            return TaskInfoBottomSheet(
-              tasks: tasks,
-              index: index,
-              todoProvider: todoProvider,
-            );
-          },
-        );
-      },
-      child: Card.filled(
-        margin: EdgeInsets.all(0),
-        color: Theme.of(context).colorScheme.surfaceContainer,
-        child: ListTile(
-          // leading: Icon(Icons.task_alt),
-          title: Text(tasks[index].name),
-          subtitle:
-              tasks[index].description != ''
-                  ? Text(
-                    tasks[index].description,
-                    style: TextStyle(fontSize: 11),
-                    overflow: TextOverflow.ellipsis,
-                  )
-                  : Text('Click to show info', style: TextStyle(fontSize: 11)),
-          trailing: Checkbox(
-            value: tasks[index].completed,
-            onChanged:
-                (value) => todoProvider.toggleTask(index, tasks[index].id),
-          ),
-        ),
-      ),
-    );
-  }
-}
+  

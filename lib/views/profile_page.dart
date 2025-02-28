@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:todo_provider/providers/todo_provider.dart';
 import 'package:todo_provider/views/settings_page.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -64,7 +62,7 @@ class ProfilePage extends StatelessWidget {
                       children: [Icon(Icons.paid_outlined), Text('Pontuação')],
                     ),
                     Text(
-                      '${context.watch<TodoProvider>().points.round().toString()}pts',
+                      '0 pts',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
