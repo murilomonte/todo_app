@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todo_provider/views/add_task_page.dart';
-import 'package:todo_provider/widgets/task_tab.dart';
+import 'package:todo_provider/src/views/add_task_page.dart';
+import 'package:todo_provider/src/widgets/task_tab.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

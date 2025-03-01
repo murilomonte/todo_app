@@ -2,8 +2,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:todo_provider/models/task_model.dart';
-import 'package:todo_provider/services/database_service.dart';
+import 'package:todo_provider/src/models/task_model.dart';
+import 'package:todo_provider/src/services/database_service.dart';
 
 class TodoProvider extends ChangeNotifier {
   TodoProvider(){

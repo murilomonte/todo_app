@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_provider/providers/user_provider.dart';
-import 'package:todo_provider/views/settings_page.dart';
+import 'package:todo_provider/src/providers/user_provider.dart';
+import 'package:todo_provider/src/views/settings_page.dart';
 
 class ProgressPage extends StatelessWidget {
   const ProgressPage({super.key});

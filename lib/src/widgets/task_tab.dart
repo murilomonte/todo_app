@@ -3,9 +3,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_provider/models/task_model.dart';
-import 'package:todo_provider/providers/todo_provider.dart';
-import 'package:todo_provider/widgets/task_item.dart';
+import 'package:todo_provider/src/models/task_model.dart';
+import 'package:todo_provider/src/providers/todo_provider.dart';
+import 'package:todo_provider/src/widgets/task_item.dart';
 
 class TaskTab extends StatelessWidget {
   final bool pending;

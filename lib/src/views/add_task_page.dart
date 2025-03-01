@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_provider/providers/todo_provider.dart';
+import 'package:todo_provider/src/providers/todo_provider.dart';
 
 class AddtaskPage extends StatefulWidget {
   const AddtaskPage({super.key});

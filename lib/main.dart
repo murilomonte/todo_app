@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_provider/providers/theme/theme_provider.dart';
-import 'package:todo_provider/providers/todo_provider.dart';
-import 'package:todo_provider/providers/user_provider.dart';
-import 'package:todo_provider/views/navigation.dart';
+import 'package:todo_provider/src/providers/theme_provider.dart';
+import 'package:todo_provider/src/providers/todo_provider.dart';
+import 'package:todo_provider/src/providers/user_provider.dart';
+import 'package:todo_provider/src/views/navigation.dart';
 
 void main() {
 

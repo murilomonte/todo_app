@@ -3,8 +3,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:todo_provider/models/user_model.dart';
-import 'package:todo_provider/services/database_service.dart';
+import 'package:todo_provider/src/models/user_model.dart';
+import 'package:todo_provider/src/services/database_service.dart';
 
 class UserProvider extends ChangeNotifier {
     final DatabaseService _databaseService = DatabaseService.instance;

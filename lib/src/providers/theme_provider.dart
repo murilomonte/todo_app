@@ -3,9 +3,9 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:todo_provider/providers/theme/dark_mode.dart';
-import 'package:todo_provider/providers/theme/light_mode.dart';
-import 'package:todo_provider/providers/user_provider.dart';
+import 'package:todo_provider/src/theme/dark_mode.dart';
+import 'package:todo_provider/src/theme/light_mode.dart';
+import 'package:todo_provider/src/providers/user_provider.dart';
 
 class ThemeProvider extends ChangeNotifier {
   final UserProvider userProvider = UserProvider();

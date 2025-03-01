@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todo_provider/views/home_page.dart';
-import 'package:todo_provider/views/progress_page.dart';
+import 'package:todo_provider/src/views/home_page.dart';
+import 'package:todo_provider/src/views/progress_page.dart';
 
 class Navigation extends StatefulWidget {
   const Navigation({super.key});

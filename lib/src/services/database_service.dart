@@ -3,8 +3,8 @@ import 'dart:developer';
 
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:todo_provider/models/task_model.dart';
-import 'package:todo_provider/models/user_model.dart';
+import 'package:todo_provider/src/models/task_model.dart';
+import 'package:todo_provider/src/models/user_model.dart';
 
 class DatabaseService {
   static Database? _db;
