@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_provider/providers/theme/theme_provider.dart';
 import 'package:todo_provider/providers/todo_provider.dart';
+import 'package:todo_provider/providers/user_provider.dart';
 import 'package:todo_provider/views/navigation.dart';
 
 void main() {
@@ -18,6 +19,7 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (context) => UserProvider()),
         ChangeNotifierProvider(create: (context) => TodoProvider()),
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
       ],

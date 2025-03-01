@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_provider/providers/user_provider.dart';
 import 'package:todo_provider/views/settings_page.dart';
 
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+class ProgressPage extends StatelessWidget {
+  const ProgressPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile'),
+        title: Text('Progress'),
         actions: [
           IconButton(
             onPressed:
@@ -25,27 +27,6 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Info perfil
-            Row(
-              spacing: 20,
-              children: [
-                CircleAvatar(
-                  backgroundImage: NetworkImage(
-                    'https://i.pinimg.com/originals/b3/2e/df/b32edfb7da5ef8d5e85740b3100b1b2f.jpg',
-                  ),
-                  radius: 60,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Fulaninho', style: TextStyle(fontSize: 30)),
-                    Text('@catWithTie', style: TextStyle(fontSize: 15)),
-                  ],
-                ),
-              ],
-            ),
-            SizedBox(height: 20),
-            Text('Progress', style: TextStyle(fontSize: 25)),
             SizedBox(height: 10),
             Card.filled(
               margin: EdgeInsets.all(0),
@@ -61,12 +42,26 @@ class ProfilePage extends StatelessWidget {
                       spacing: 5,
                       children: [Icon(Icons.paid_outlined), Text('Pontuação')],
                     ),
-                    Text(
-                      '0 pts',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    FutureBuilder(
+                      future: context.read<UserProvider>().getUser(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Text(
+                          '0pts',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        );
+                        }
+                        return Text(
+                          '${snapshot.data!.score.round().toString()}pts',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),

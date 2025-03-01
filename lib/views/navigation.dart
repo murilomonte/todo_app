@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_provider/views/home_page.dart';
-import 'package:todo_provider/views/profile_page.dart';
+import 'package:todo_provider/views/progress_page.dart';
 
 class Navigation extends StatefulWidget {
   const Navigation({super.key});
@@ -16,7 +16,7 @@ class _NavigationState extends State<Navigation> {
     return Scaffold(
       bottomNavigationBar: NavigationBarTheme(
         data: NavigationBarThemeData(
-         // indicatorColor: const Color.fromARGB(255, 50, 50, 50) -> mudar depois
+          // indicatorColor: const Color.fromARGB(255, 50, 50, 50) -> mudar depois
         ),
         child: NavigationBar(
           //labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
@@ -37,14 +37,14 @@ class _NavigationState extends State<Navigation> {
               label: 'Home',
             ),
             NavigationDestination(
-              icon: Icon(Icons.person_outlined),
-              selectedIcon: Icon(Icons.person),
-              label: 'Profile',
-            )
+              selectedIcon: Icon(Icons.trending_up),
+              icon: Icon(Icons.trending_up_outlined),
+              label: 'Score',
+            ),
           ],
         ),
       ),
-      body: [HomePage(), ProfilePage()][counter],
+      body: [HomePage(), ProgressPage()][counter],
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_provider/providers/todo_provider.dart';
+import 'package:todo_provider/providers/user_provider.dart';
 import 'package:todo_provider/widgets/task_info_bottom_sheet.dart';
 
 class TaskItem extends StatelessWidget {
@@ -63,7 +64,8 @@ class TaskItem extends StatelessWidget {
             trailing: Checkbox(
               value: status == 1,
               onChanged: (value) {
-                Provider.of<TodoProvider>(context, listen: false).toggleTask(id, status == 1 ? 0 : 1);
+                context.read<TodoProvider>().toggleTask(id, status == 1 ? 0 : 1);
+                context.read<UserProvider>().updateUserScore(points);
               },
             ),
           ),

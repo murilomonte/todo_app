@@ -1,11 +1,25 @@
+// ignore: unused_import
+// ignore: unused_import
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:todo_provider/providers/theme/dark_mode.dart';
 import 'package:todo_provider/providers/theme/light_mode.dart';
+import 'package:todo_provider/providers/user_provider.dart';
 
 class ThemeProvider extends ChangeNotifier {
-  // iniciamente no lightmode
-  // ThemeData _themeData = lightMode;
-  ThemeData _themeData = darkMode;
+  final UserProvider userProvider = UserProvider();
+  ThemeData _themeData = lightMode;
+
+  void getUserPrefs() async {
+    final userPrefs = await UserProvider().getUser();
+    _themeData = userPrefs.theme == 'light' ? lightMode : darkMode;
+    notifyListeners();
+  }
+
+  ThemeProvider() {
+    getUserPrefs();
+  }
 
   // Getter
   get themeData => _themeData;
@@ -21,8 +35,10 @@ class ThemeProvider extends ChangeNotifier {
   void toggleTheme() {
     if (_themeData == lightMode) {
       _themeData = darkMode;
+      userProvider.updateUserTheme('dark');
     } else {
       _themeData = lightMode;
+      userProvider.updateUserTheme('light');
     }
     notifyListeners();
   }

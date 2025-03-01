@@ -1,3 +1,4 @@
+// ignore: unused_import
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -26,7 +27,7 @@ class TaskTab extends StatelessWidget {
             child: Consumer<TodoProvider>(
                 builder: (context, value, child) {
                   // TODO: o consumer tá sendo chamado várias vezes
-                  log('[run] -> consumer<TodoProvider>');
+                  // log('[run] -> consumer<TodoProvider>');
 
                   List<TaskModel> tasks =
                       pending ? value.pendingTasks : value.completedTasks;

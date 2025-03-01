@@ -39,7 +39,7 @@ class SettingsPage extends StatelessWidget {
                                 value.isDarkMode
                                     ? Icons.dark_mode
                                     : Icons.light_mode,
-                               size: 20, 
+                                size: 20,
                               ),
                               Text(
                                 value.isDarkMode ? 'Dark mode' : 'Light mode',
@@ -48,7 +48,9 @@ class SettingsPage extends StatelessWidget {
                           ),
                           Switch(
                             value: value.isDarkMode,
-                            onChanged: (context) => value.toggleTheme(),
+                            onChanged: (context) {
+                              value.toggleTheme();
+                            },
                           ),
                         ],
                       ),
