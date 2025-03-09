@@ -9,19 +9,24 @@ import 'package:todo_provider/src/services/database_service.dart';
 class UserProvider extends ChangeNotifier {
     final DatabaseService _databaseService = DatabaseService.instance;
 
+    UserModel? _user;
+    UserModel? get user => _user; // Getter para uso externo
+
     // obtém o user
-    Future<UserModel> getUser() async {
-      UserModel user = await _databaseService.getUser();
-      return user;
+    Future<void> getUser() async {
+      _user = await _databaseService.getUser();
+      notifyListeners();
     }
 
     // atualiza o tema
-    void updateUserTheme(String theme) async {
+    Future<void> updateUserTheme(String theme) async {
       await _databaseService.updateUserTheme(theme);
+      await getUser(); // Atualiza o estado após a mudança
     }
 
     // atualiza o score
-    void updateUserScore(double score) async {
-      await _databaseService.updateUserScore(score);
+    Future<void> updateUserScore(double score, int status) async {
+      await _databaseService.updateUserScore(score, status);
+      await getUser(); // Atualiza o estado após a mudança
     }
 }

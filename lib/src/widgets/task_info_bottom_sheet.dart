@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_provider/src/providers/todo_provider.dart';
+import 'package:todo_provider/src/providers/user_provider.dart';
 
 class TaskInfoBottomSheet extends StatelessWidget {
   const TaskInfoBottomSheet({
@@ -97,7 +98,8 @@ class TaskInfoBottomSheet extends StatelessWidget {
                         padding: EdgeInsets.symmetric(vertical: 15),
                       ),
                       onPressed: () {
-                        Provider.of<TodoProvider>(context, listen: false).toggleTask(id, status == 1 ? 0 : 1);
+                        context.read<TodoProvider>().toggleTask(id, status == 1 ? 0 : 1);
+                        context.read<UserProvider>().updateUserScore(points, status);
                         Navigator.pop(context);
                       },
                       icon: Icon(Icons.task_alt_rounded),

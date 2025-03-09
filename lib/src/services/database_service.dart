@@ -149,7 +149,7 @@ class DatabaseService {
   }
 
   // Deleta uma task
-  void deleteTask(int id) async {
+  Future<void> deleteTask(int id) async {
     final db = await database;
     await db.delete(_taskTableName, where: 'id = ?', whereArgs: [id]);
   }
@@ -189,10 +189,10 @@ class DatabaseService {
   }
 
   // Atualiza o score
-  Future<void> updateUserScore(double score) async {
+  Future<void> updateUserScore(double score, int status) async {
     final db = await database;
     UserModel userData = await getUser();
-    double newScore = userData.score + score;
+    double newScore = status == 0 ? userData.score + score : userData.score - score;
     await db.update(
       _userTableName,
       {_userScoreCoulumnName: newScore},

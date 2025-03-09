@@ -65,7 +65,7 @@ class TaskItem extends StatelessWidget {
               value: status == 1,
               onChanged: (value) {
                 context.read<TodoProvider>().toggleTask(id, status == 1 ? 0 : 1);
-                context.read<UserProvider>().updateUserScore(points);
+                context.read<UserProvider>().updateUserScore(points, status);
               },
             ),
           ),

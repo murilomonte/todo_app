@@ -42,27 +42,15 @@ class ProgressPage extends StatelessWidget {
                       spacing: 5,
                       children: [Icon(Icons.paid_outlined), Text('Pontuação')],
                     ),
-                    FutureBuilder(
-                      future: context.read<UserProvider>().getUser(),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return Text(
-                          '0pts',
+                    Consumer<UserProvider>(builder: (context, value, child) {
+                      return Text(
+                          '${value.user!.score.round().toString()}pts',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
                         );
-                        }
-                        return Text(
-                          '${snapshot.data!.score.round().toString()}pts',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        );
-                      },
-                    ),
+                    },)
                   ],
                 ),
               ),

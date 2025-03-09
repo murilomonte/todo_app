@@ -25,6 +25,7 @@ class _NavigationState extends State<Navigation> {
               counter = value;
             });
           },
+          height: 70,
           indicatorShape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -41,10 +42,20 @@ class _NavigationState extends State<Navigation> {
               icon: Icon(Icons.trending_up_outlined),
               label: 'Score',
             ),
+            NavigationDestination(
+              selectedIcon: Icon(Icons.local_library),
+              icon: Icon(Icons.local_library_outlined),
+              label: 'Score',
+            ),
+            NavigationDestination(
+              selectedIcon: Icon(Icons.person),
+              icon: Icon(Icons.person_outlined),
+              label: 'Score',
+            ),
           ],
         ),
       ),
-      body: [HomePage(), ProgressPage()][counter],
+      body: [HomePage(), ProgressPage(), Placeholder(), Placeholder()][counter],
     );
   }
 }
