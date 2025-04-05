@@ -60,7 +60,7 @@ class TaskItem extends StatelessWidget {
                       style: TextStyle(fontSize: 11),
                       overflow: TextOverflow.ellipsis,
                     )
-                    : Text('Click to show info', style: TextStyle(fontSize: 11)),
+                    : Text('Click to show info.', style: TextStyle(fontSize: 11)),
             trailing: Checkbox(
               value: status == 1,
               onChanged: (value) {

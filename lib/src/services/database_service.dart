@@ -192,7 +192,8 @@ class DatabaseService {
   Future<void> updateUserScore(double score, int status) async {
     final db = await database;
     UserModel userData = await getUser();
-    double newScore = status == 0 ? userData.score + score : userData.score - score;
+    double newScore =
+        status == 0 ? userData.score + score : userData.score - score;
     await db.update(
       _userTableName,
       {_userScoreCoulumnName: newScore},
@@ -200,5 +201,19 @@ class DatabaseService {
       whereArgs: [0],
     );
     // log('[Score] User 0 -> score $newScore');
+  }
+
+  // Redefine o usuário e apaga suas tasks
+
+  Future<void> resetUserData() async {
+    final db = await database;
+    await db.delete(_taskTableName, where: 'userId = ?', whereArgs: [0]);
+    await db.delete(_userTableName, where: 'id = ?', whereArgs: [0]);
+    await db.insert(_userTableName, {
+      _userIdColumnName: 0,
+      _userNameColumnName: 'default',
+      _userThemeColumnName: 'light',
+      _userScoreCoulumnName: 0,
+    });
   }
 }

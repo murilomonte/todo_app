@@ -64,7 +64,7 @@ class TodoProvider extends ChangeNotifier {
     await updateTaskList();
   }
 
-  // Trasita as taks entre listas
+  // Muda o status da task
   Future<void> toggleTask(int id, int status) async {
     // Verifica se o indice informado existe
     // indexWhere retorna o primeiro item que atender a especificação

@@ -24,6 +24,12 @@ class UserProvider extends ChangeNotifier {
       await getUser(); // Atualiza o estado após a mudança
     }
 
+    // Redefine o usuário e apaga suas tasks
+    Future<void> resetUserData() async {
+      await _databaseService.resetUserData();
+      await getUser(); // Atualiza o estado após a mudança
+    }
+
     // atualiza o score
     Future<void> updateUserScore(double score, int status) async {
       await _databaseService.updateUserScore(score, status);
