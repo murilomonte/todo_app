@@ -12,12 +12,10 @@ import 'package:todo_provider/src/views/navigation.dart';
 Future main() async {
   // Workaround para permitir que o sqflite funcione em windows e linux
   if (Platform.isWindows || Platform.isLinux) {
-    // Initialize FFI
+    databaseFactory = databaseFactoryFfi;
     sqfliteFfiInit();
   }
-  // Change the default factory. On iOS/Android, if not using `sqlite_flutter_lib` you can forget
-  // this step, it will use the sqlite version available on the system.
-  databaseFactory = databaseFactoryFfi;
+  
 
   WidgetsFlutterBinding.ensureInitialized();
   // make navigation bar transparent
