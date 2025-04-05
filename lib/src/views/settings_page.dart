@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restart_app/restart_app.dart';
-import 'package:todo_provider/src/providers/theme_provider.dart';
-import 'package:todo_provider/src/providers/user_provider.dart';
+import 'package:todo_provider/src/controllers/theme_controller.dart';
+import 'package:todo_provider/src/controllers/user_controller.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -23,7 +23,7 @@ class SettingsPage extends StatelessWidget {
                 child: Text('Theme settings', style: TextStyle(fontSize: 17)),
               ),
               SizedBox(height: 10),
-              Consumer<ThemeProvider>(
+              Consumer<ThemeController>(
                 builder: (context, value, child) {
                   return InkWell(
                     customBorder: RoundedRectangleBorder(
@@ -101,7 +101,7 @@ class SettingsPage extends StatelessWidget {
                               ),
                             ),
                             onPressed: () {
-                              Provider.of<UserProvider>(
+                              Provider.of<UserController>(
                                 context,
                                 listen: false,
                               ).resetUserData();

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_provider/src/providers/user_provider.dart';
+import 'package:todo_provider/src/controllers/user_controller.dart';
 
 class ProgressPage extends StatelessWidget {
   const ProgressPage({super.key});
@@ -31,7 +31,7 @@ class ProgressPage extends StatelessWidget {
                       spacing: 5,
                       children: [Icon(Icons.paid_outlined), Text('Pontuação')],
                     ),
-                    Consumer<UserProvider>(builder: (context, value, child) {
+                    Consumer<UserController>(builder: (context, value, child) {
                       return Text(
                           '${value.user!.score.round().toString()}pts',
                           style: TextStyle(

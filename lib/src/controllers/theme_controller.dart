@@ -5,20 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_provider/src/theme/dark_mode.dart';
 import 'package:todo_provider/src/theme/light_mode.dart';
-import 'package:todo_provider/src/providers/user_provider.dart';
+import 'package:todo_provider/src/controllers/user_controller.dart';
 
-class ThemeProvider extends ChangeNotifier {
-  final UserProvider _userProvider;
+class ThemeController extends ChangeNotifier {
+  final UserController _UserController;
   ThemeData? _themeData;
 
-  ThemeProvider(BuildContext context)
-    : _userProvider = Provider.of<UserProvider>(context, listen: false) {
+  ThemeController(BuildContext context)
+    : _UserController = Provider.of<UserController>(context, listen: false) {
     _initializeTheme(context);
   }
 
   Future<void> _initializeTheme(BuildContext context) async {
-    await _userProvider.getUser();
-    _themeData = _userProvider.user!.theme == 'light' ? lightMode : darkMode;
+    await _UserController.getUser();
+    _themeData = _UserController.user!.theme == 'light' ? lightMode : darkMode;
     notifyListeners();
   }
 
@@ -29,7 +29,7 @@ class ThemeProvider extends ChangeNotifier {
   // Toggle Theme
   void toggleTheme() {
     _themeData = _themeData == lightMode ? darkMode : lightMode;
-    _userProvider.updateUserTheme(isDarkMode ? 'dark' : 'light');
+    _UserController.updateUserTheme(isDarkMode ? 'dark' : 'light');
     notifyListeners();
   }
 }

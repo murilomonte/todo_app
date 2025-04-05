@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_provider/src/providers/todo_provider.dart';
-import 'package:todo_provider/src/providers/user_provider.dart';
+import 'package:todo_provider/src/controllers/todo_controller.dart';
+import 'package:todo_provider/src/controllers/user_controller.dart';
 import 'package:todo_provider/src/widgets/task_info_bottom_sheet.dart';
 
 class TaskItem extends StatelessWidget {
@@ -23,7 +23,7 @@ class TaskItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // usar future builder depois? Ou tentar outra abordagem
-    //TodoProvider todoProvider = context.watch<TodoProvider>();
+    //TodoController TodoController = context.watch<TodoController>();
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
@@ -64,8 +64,8 @@ class TaskItem extends StatelessWidget {
             trailing: Checkbox(
               value: status == 1,
               onChanged: (value) {
-                context.read<TodoProvider>().toggleTask(id, status == 1 ? 0 : 1);
-                context.read<UserProvider>().updateUserScore(points, status);
+                context.read<TodoController>().toggleTask(id, status == 1 ? 0 : 1);
+                context.read<UserController>().updateUserScore(points, status);
               },
             ),
           ),

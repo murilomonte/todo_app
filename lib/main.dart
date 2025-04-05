@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
-import 'package:todo_provider/src/providers/theme_provider.dart';
-import 'package:todo_provider/src/providers/todo_provider.dart';
-import 'package:todo_provider/src/providers/user_provider.dart';
+import 'package:todo_provider/src/controllers/theme_controller.dart';
+import 'package:todo_provider/src/controllers/todo_controller.dart';
+import 'package:todo_provider/src/controllers/user_controller.dart';
 import 'package:todo_provider/src/views/navigation.dart';
 
 Future main() async {
@@ -28,9 +28,9 @@ Future main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => UserProvider()),
-        ChangeNotifierProvider(create: (context) => TodoProvider()),
-        ChangeNotifierProvider(create: (context) => ThemeProvider(context)),
+        ChangeNotifierProvider(create: (context) => UserController()),
+        ChangeNotifierProvider(create: (context) => TodoController()),
+        ChangeNotifierProvider(create: (context) => ThemeController(context)),
       ],
       child: MyApp()
     ),
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: Provider.of<ThemeProvider>(context).themeData,
+        theme: Provider.of<ThemeController>(context).themeData,
         debugShowCheckedModeBanner: false,
         home: Navigation(),
       );

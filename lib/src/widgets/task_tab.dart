@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_provider/src/models/task_model.dart';
-import 'package:todo_provider/src/providers/todo_provider.dart';
+import 'package:todo_provider/src/controllers/todo_controller.dart';
 import 'package:todo_provider/src/widgets/task_item.dart';
 
 class TaskTab extends StatelessWidget {
@@ -14,7 +14,7 @@ class TaskTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Provider.of<TodoProvider>(context, listen: false).updateTaskList();
+    // Provider.of<TodoController>(context, listen: false).updateTaskList();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
@@ -24,9 +24,9 @@ class TaskTab extends StatelessWidget {
           SizedBox(height: 10),
           // Task list
           Expanded(
-            child: Consumer<TodoProvider>(
+            child: Consumer<TodoController>(
                 builder: (context, value, child) {
-                  // log('[run] -> consumer<TodoProvider>');
+                  // log('[run] -> consumer<TodoController>');
 
                   List<TaskModel> tasks =
                       pending ? value.pendingTasks : value.completedTasks;

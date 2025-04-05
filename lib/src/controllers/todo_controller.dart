@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_provider/src/models/task_model.dart';
 import 'package:todo_provider/src/services/database_service.dart';
 
-class TodoProvider extends ChangeNotifier {
+class TodoController extends ChangeNotifier {
   final DatabaseService _databaseService = DatabaseService.instance;
 
   // taks
@@ -18,7 +18,7 @@ class TodoProvider extends ChangeNotifier {
   List<TaskModel> get completedTasks => _completedTasks;
   
 
-  TodoProvider() {
+  TodoController() {
     _initialize();
   }
 

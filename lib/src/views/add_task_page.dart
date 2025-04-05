@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_provider/src/providers/todo_provider.dart';
+import 'package:todo_provider/src/controllers/todo_controller.dart';
 
 class AddtaskPage extends StatefulWidget {
   const AddtaskPage({super.key});
@@ -151,7 +151,7 @@ class _AddtaskPageState extends State<AddtaskPage> {
                         duration: Duration(seconds: 2),
                       ),
                     );
-                    final todo = context.read<TodoProvider>();
+                    final todo = context.read<TodoController>();
                     todo.addTask(
                       title: _titleController.text,
                       description: _descController.text,
