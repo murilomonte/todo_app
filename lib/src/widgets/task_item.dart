@@ -28,7 +28,7 @@ class TaskItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: InkWell(
-        radius: 15,
+                  customBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         onTap: () {
           showModalBottomSheet(
             showDragHandle: true,

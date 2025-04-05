@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_provider/src/views/home_page.dart';
 import 'package:todo_provider/src/views/progress_page.dart';
+import 'package:todo_provider/src/views/settings_page.dart';
 
 class Navigation extends StatefulWidget {
   const Navigation({super.key});
@@ -10,52 +11,90 @@ class Navigation extends StatefulWidget {
 }
 
 class _NavigationState extends State<Navigation> {
-  int counter = 0;
+  int selectedIndex = 0;
+
+  void changeIndex(value) {
+    setState(() {
+      selectedIndex = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: NavigationBarTheme(
-        data: NavigationBarThemeData(
-          // indicatorColor: const Color.fromARGB(255, 50, 50, 50) -> mudar depois
-        ),
-        child: NavigationBar(
-          //labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-          onDestinationSelected: (value) {
-            setState(() {
-              counter = value;
-            });
-          },
-          height: 70,
-          indicatorShape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          selectedIndex: counter,
-          labelPadding: EdgeInsets.all(1),
-          destinations: [
-            NavigationDestination(
-              icon: Icon(Icons.home_outlined),
-              selectedIcon: Icon(Icons.home),
-              label: 'Home',
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth < 500) {
+          return Scaffold(
+            bottomNavigationBar: NavigationBarTheme(
+              data: NavigationBarThemeData(
+                // indicatorColor: const Color.fromARGB(255, 50, 50, 50) -> mudar depois
+              ),
+              child: NavigationBar(
+                //labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+                onDestinationSelected: (value) => changeIndex(value),
+                height: 70,
+                indicatorShape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                selectedIndex: selectedIndex,
+                labelPadding: EdgeInsets.all(1),
+                destinations: [
+                  NavigationDestination(
+                    icon: Icon(Icons.home_outlined),
+                    selectedIcon: Icon(Icons.home),
+                    label: 'Home',
+                  ),
+                  NavigationDestination(
+                    selectedIcon: Icon(Icons.trending_up),
+                    icon: Icon(Icons.trending_up_outlined),
+                    label: 'Score',
+                  ),
+                  NavigationDestination(
+                    selectedIcon: Icon(Icons.settings),
+                    icon: Icon(Icons.settings_outlined),
+                    label: 'Settings',
+                  ),
+                ],
+              ),
             ),
-            NavigationDestination(
-              selectedIcon: Icon(Icons.trending_up),
-              icon: Icon(Icons.trending_up_outlined),
-              label: 'Score',
+            body: [HomePage(), ProgressPage(), SettingsPage()][selectedIndex],
+          );
+        }
+        return Row(
+          children: [
+            NavigationRail(
+              minWidth: 100,
+              indicatorShape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              labelType: NavigationRailLabelType.all,
+              destinations: [
+                NavigationRailDestination(
+                  icon: Icon(Icons.home_outlined),
+                  selectedIcon: Icon(Icons.home),
+                  label: Text('Home'),
+                ),
+                NavigationRailDestination(
+                  selectedIcon: Icon(Icons.trending_up),
+                  icon: Icon(Icons.trending_up_outlined),
+                  label: Text('Score'),
+                ),
+                NavigationRailDestination(
+                  selectedIcon: Icon(Icons.settings),
+                  icon: Icon(Icons.settings_outlined),
+                  label: Text('Settings'),
+                ),
+              ],
+              selectedIndex: selectedIndex,
+              onDestinationSelected: (value) => changeIndex(value),
             ),
-            NavigationDestination(
-              selectedIcon: Icon(Icons.local_library),
-              icon: Icon(Icons.local_library_outlined),
-              label: 'Score',
-            ),
-            NavigationDestination(
-              selectedIcon: Icon(Icons.person),
-              icon: Icon(Icons.person_outlined),
-              label: 'Score',
+            Expanded(
+              child:
+                  [HomePage(), ProgressPage(), SettingsPage()][selectedIndex],
             ),
           ],
-        ),
-      ),
-      body: [HomePage(), ProgressPage(), Placeholder(), Placeholder()][counter],
+        );
+      },
     );
   }
 }

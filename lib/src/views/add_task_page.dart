@@ -28,6 +28,7 @@ class _AddtaskPageState extends State<AddtaskPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Form - Task name e Description
               Form(
                 key: formKey,
                 child: Column(
@@ -45,7 +46,8 @@ class _AddtaskPageState extends State<AddtaskPage> {
                       controller: _titleController,
                       decoration: InputDecoration(
                         hintText: 'Awesome task.',
-                        border: OutlineInputBorder()),
+                        border: OutlineInputBorder(),
+                      ),
                       validator: (value) {
                         // validação que retorna uma mensagem ao usuário
                         if (value == null || value.isEmpty) {
@@ -75,6 +77,8 @@ class _AddtaskPageState extends State<AddtaskPage> {
                   ],
                 ),
               ),
+
+              // Pontuação
               SizedBox(height: 20),
               Text(
                 'Pontuação',
@@ -99,56 +103,68 @@ class _AddtaskPageState extends State<AddtaskPage> {
                       },
                     ),
                   ),
-                  Expanded(flex: 2, child: Text('${_points.toInt()} pts', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold))),
+                  Expanded(
+                    flex: 2,
+                    child: Text(
+                      '${_points.toInt()} pts',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ],
               ),
               SizedBox(height: 20),
-              Row(
-                spacing: 10,
-                children: [
-                  Expanded(
-                    child: OutlinedButton.icon(
-                      style: OutlinedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(vertical: 15),
-                      ),
-                      onPressed: () => Navigator.pop(context),
-                      icon: Icon(Icons.close),
-                      label: Text('Cancel'),
-                    ),
-                  ),
-                  Expanded(
-                    child: FilledButton.icon(
-                      style: FilledButton.styleFrom(
-                        padding: EdgeInsets.symmetric(vertical: 15),
-                      ),
-                      onPressed: () {
-                        // verifica se o campo é válido. Caso contrário, mostra a mensagem de erro
-                        if (formKey.currentState!.validate()) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Task added'),
-                              behavior: SnackBarBehavior.floating,
-                              showCloseIcon: true,
-                              duration: Duration(seconds: 2),
-                            ),
-                          );
-                          final todo = context.read<TodoProvider>();
-                          todo.addTask(
-                            title: _titleController.text,
-                            description: _descController.text,
-                            points: _points,
-                          );
-                          Navigator.pop(context);
-                        }
-                      },
-                      icon: Icon(Icons.add),
-                      label: Text('Add'),
-                    ),
-                  ),
-                ],
-              ),
             ],
           ),
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+        child: Row(
+          spacing: 10,
+          children: [
+            Expanded(
+              child: OutlinedButton.icon(
+                style: OutlinedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: 15),
+                ),
+                onPressed: () => Navigator.pop(context),
+                icon: Icon(Icons.close),
+                label: Text('Cancel'),
+              ),
+            ),
+            Expanded(
+              child: FilledButton.icon(
+                style: FilledButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: 15),
+                ),
+                onPressed: () {
+                  // verifica se o campo é válido. Caso contrário, mostra a mensagem de erro
+                  if (formKey.currentState!.validate()) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Task added'),
+                        behavior: SnackBarBehavior.floating,
+                        showCloseIcon: true,
+                        duration: Duration(seconds: 2),
+                      ),
+                    );
+                    final todo = context.read<TodoProvider>();
+                    todo.addTask(
+                      title: _titleController.text,
+                      description: _descController.text,
+                      points: _points,
+                    );
+                    Navigator.pop(context);
+                  }
+                },
+                icon: Icon(Icons.add),
+                label: Text('Add'),
+              ),
+            ),
+          ],
         ),
       ),
     );

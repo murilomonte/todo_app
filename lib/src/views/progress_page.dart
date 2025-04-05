@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_provider/src/providers/user_provider.dart';
-import 'package:todo_provider/src/views/settings_page.dart';
 
 class ProgressPage extends StatelessWidget {
   const ProgressPage({super.key});
@@ -11,16 +10,6 @@ class ProgressPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Progress'),
-        actions: [
-          IconButton(
-            onPressed:
-                () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SettingsPage()),
-                ),
-            icon: Icon(Icons.settings_outlined),
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(15),

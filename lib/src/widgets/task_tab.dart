@@ -32,7 +32,7 @@ class TaskTab extends StatelessWidget {
                       pending ? value.pendingTasks : value.completedTasks;
 
                   if (tasks.isEmpty) {
-                    return Center(child: Text('Add some tasks!'));        
+                    return Center(child: Text(pending ? 'Add some tasks!' : 'Complete some tasks!'));        
                   }      
 
                   // Constrói uma lista de itens com base na lista de tasks
