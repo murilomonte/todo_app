@@ -1,9 +1,9 @@
 
 class UserModel {
-  int id;
-  String name;
-  String theme;
-  double score;
+  final int id;
+  final String name;
+  final String theme;
+  final double score;
   UserModel({
     required this.id,
     required this.name,

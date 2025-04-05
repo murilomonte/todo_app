@@ -6,30 +6,44 @@ import 'package:todo_provider/src/models/task_model.dart';
 import 'package:todo_provider/src/services/database_service.dart';
 
 class TodoProvider extends ChangeNotifier {
-  TodoProvider(){
-    Future.microtask(() => updateTaskList());
-  }
-
   final DatabaseService _databaseService = DatabaseService.instance;
 
   // taks
   List<TaskModel> _tasks = [];
+  List<TaskModel> _pendingTasks = [];
+  List<TaskModel> _completedTasks = [];
+  bool _isInitialized = false;
 
-  List<TaskModel> get pendingTasks {
-    log('[run] -> pendingTasks');
-    return _tasks.where((item) => item.status == 0).toList();
+  List<TaskModel> get pendingTasks => _pendingTasks;
+  List<TaskModel> get completedTasks => _completedTasks;
+  
+
+  TodoProvider() {
+    _initialize();
   }
 
-  List<TaskModel> get completedTasks {
-    log('[run] -> completedTasks');
-    return _tasks.where((item) => item.status == 1).toList();
+  Future<void> _initialize() async {
+    // Se já estiver inicializado, ignora
+    if (_isInitialized) return;
+    await updateTaskList(silent: true);
+    _isInitialized = true;
   }
 
   // Obtém as tasks
-  Future<void> updateTaskList() async {
+  Future<void> updateTaskList({silent = false}) async {
     _tasks = await _databaseService.getTasks();
+    _updateFilteredTaskList();
     log('[run] -> updateTaskList');
-    notifyListeners();
+    
+    // Deixa de atualizar a interface quando requisitado
+    if (!silent) notifyListeners();
+  }
+
+  // Torna possível atualizar as listas filtradas junto a principal
+  void _updateFilteredTaskList() {
+    log('[run] -> _updateFilteredTaskList');
+    _pendingTasks = _tasks.where((item) => item.status == 0).toList();
+    _completedTasks = _tasks.where((item) => item.status == 1).toList();
   }
 
   // Adiciona uma task
@@ -52,6 +66,14 @@ class TodoProvider extends ChangeNotifier {
 
   // Trasita as taks entre listas
   Future<void> toggleTask(int id, int status) async {
+    // Verifica se o indice informado existe
+    // indexWhere retorna o primeiro item que atender a especificação
+    final int index = _tasks.indexWhere((task) => task.id == id);
+
+    if (index != -1) {
+      _tasks[index] = _tasks[index].copyWith(status: status);
+    }
+
     _databaseService.updateTaskStatus(id, status);
     log('[run] -> toggleTask');
     await updateTaskList();

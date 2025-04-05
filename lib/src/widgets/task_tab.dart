@@ -14,7 +14,7 @@ class TaskTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<TodoProvider>(context, listen: false).updateTaskList();
+    // Provider.of<TodoProvider>(context, listen: false).updateTaskList();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
@@ -26,7 +26,6 @@ class TaskTab extends StatelessWidget {
           Expanded(
             child: Consumer<TodoProvider>(
                 builder: (context, value, child) {
-                  // TODO: o consumer tá sendo chamado várias vezes
                   // log('[run] -> consumer<TodoProvider>');
 
                   List<TaskModel> tasks =

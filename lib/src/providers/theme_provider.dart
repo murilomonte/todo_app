@@ -1,5 +1,4 @@
 // ignore: unused_import
-// ignore: unused_import
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -9,40 +8,28 @@ import 'package:todo_provider/src/theme/light_mode.dart';
 import 'package:todo_provider/src/providers/user_provider.dart';
 
 class ThemeProvider extends ChangeNotifier {
-  final UserProvider userProvider = UserProvider();
-  ThemeData _themeData = lightMode;
+  final UserProvider _userProvider;
+  ThemeData? _themeData;
 
-  ThemeProvider(BuildContext context) {
-    // Future.microtask é executado antes de quaisquer Future comum
-    Future.microtask(() => getUserPrefs(context));
+  ThemeProvider(BuildContext context)
+    : _userProvider = Provider.of<UserProvider>(context, listen: false) {
+    _initializeTheme(context);
   }
 
-  void getUserPrefs(BuildContext context) async {
-    final userProvider = Provider.of<UserProvider>(context ,listen: false);
-    await userProvider.getUser();
-    _themeData = userProvider.user!.theme == 'light' ? lightMode : darkMode;
+  Future<void> _initializeTheme(BuildContext context) async {
+    await _userProvider.getUser();
+    _themeData = _userProvider.user!.theme == 'light' ? lightMode : darkMode;
     notifyListeners();
   }
 
   // Getter
-  get themeData => _themeData;
+  ThemeData get themeData => _themeData ?? lightMode;
   bool get isDarkMode => _themeData == darkMode;
-
-  // Setter
-  set themeMode(ThemeData theme) {
-    _themeData = theme;
-    notifyListeners();
-  }
 
   // Toggle Theme
   void toggleTheme() {
-    if (_themeData == lightMode) {
-      _themeData = darkMode;
-      userProvider.updateUserTheme('dark');
-    } else {
-      _themeData = lightMode;
-      userProvider.updateUserTheme('light');
-    }
+    _themeData = _themeData == lightMode ? darkMode : lightMode;
+    _userProvider.updateUserTheme(isDarkMode ? 'dark' : 'light');
     notifyListeners();
   }
 }
