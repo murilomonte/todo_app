@@ -40,9 +40,9 @@ class _NavigationState extends State<Navigation> {
                 labelPadding: EdgeInsets.all(1),
                 destinations: [
                   NavigationDestination(
-                    icon: Icon(Icons.home_outlined),
-                    selectedIcon: Icon(Icons.home),
-                    label: 'Home',
+                    icon: Icon(Icons.checklist),
+                    selectedIcon: Icon(Icons.checklist_outlined),
+                    label: 'Tasks',
                   ),
                   NavigationDestination(
                     selectedIcon: Icon(Icons.trending_up),
@@ -70,9 +70,9 @@ class _NavigationState extends State<Navigation> {
               labelType: NavigationRailLabelType.all,
               destinations: [
                 NavigationRailDestination(
-                  icon: Icon(Icons.home_outlined),
-                  selectedIcon: Icon(Icons.home),
-                  label: Text('Home'),
+                  icon: Icon(Icons.checklist),
+                  selectedIcon: Icon(Icons.checklist_outlined),
+                  label: Text('Tasks'),
                 ),
                 NavigationRailDestination(
                   selectedIcon: Icon(Icons.trending_up),
