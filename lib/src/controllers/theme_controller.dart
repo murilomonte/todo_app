@@ -8,17 +8,17 @@ import 'package:todo_provider/src/theme/light_mode.dart';
 import 'package:todo_provider/src/controllers/user_controller.dart';
 
 class ThemeController extends ChangeNotifier {
-  final UserController _UserController;
+  final UserController _userController;
   ThemeData? _themeData;
 
   ThemeController(BuildContext context)
-    : _UserController = Provider.of<UserController>(context, listen: false) {
+    : _userController = Provider.of<UserController>(context, listen: false) {
     _initializeTheme(context);
   }
 
   Future<void> _initializeTheme(BuildContext context) async {
-    await _UserController.getUser();
-    _themeData = _UserController.user!.theme == 'light' ? lightMode : darkMode;
+    await _userController.getUser();
+    _themeData = _userController.user!.theme == 'light' ? lightMode : darkMode;
     notifyListeners();
   }
 
@@ -29,7 +29,7 @@ class ThemeController extends ChangeNotifier {
   // Toggle Theme
   void toggleTheme() {
     _themeData = _themeData == lightMode ? darkMode : lightMode;
-    _UserController.updateUserTheme(isDarkMode ? 'dark' : 'light');
+    _userController.updateUserTheme(isDarkMode ? 'dark' : 'light');
     notifyListeners();
   }
 }
