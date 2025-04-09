@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:todo_provider/src/views/add_task_page.dart';
 import 'package:todo_provider/src/widgets/task_tab.dart';
 
 class HomePage extends StatelessWidget {
@@ -9,6 +8,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
+        // Mobile
         if (constraints.maxWidth < 700) {
           return DefaultTabController(
             length: 2,
@@ -28,19 +28,11 @@ class HomePage extends StatelessWidget {
                   TaskTab(pending: false, title: 'Completed'),
                 ],
               ),
-              floatingActionButton: FloatingActionButton.extended(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => AddtaskPage()),
-                  );
-                },
-                label: Text('Add task'),
-                icon: Icon(Icons.add),
-              ),
             ),
           );
         }
+
+        // Desktop / tablet
         return Scaffold(
           appBar: AppBar(title: Text('Todo App')),
           body: Row(
@@ -99,16 +91,6 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-          floatingActionButton: FloatingActionButton.extended(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => AddtaskPage()),
-              );
-            },
-            label: Text('Add task'),
-            icon: Icon(Icons.add),
           ),
         );
       },

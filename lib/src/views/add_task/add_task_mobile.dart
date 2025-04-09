@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_provider/src/controllers/todo_controller.dart';
 
-class AddtaskPage extends StatefulWidget {
-  const AddtaskPage({super.key});
+class AddTaskMobile extends StatefulWidget {
+  const AddTaskMobile({super.key});
 
   @override
-  State<AddtaskPage> createState() => _AddtaskPageState();
+  State<AddTaskMobile> createState() => _AddTaskMobileState();
 }
 
-class _AddtaskPageState extends State<AddtaskPage> {
+class _AddTaskMobileState extends State<AddTaskMobile> {
   final TextEditingController _titleController = TextEditingController();
 
   final TextEditingController _descController = TextEditingController();
