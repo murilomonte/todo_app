@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_provider/src/utility/constraints.dart';
 import 'package:todo_provider/src/views/navigation/navigation_desktop.dart';
 import 'package:todo_provider/src/views/navigation/navigation_mobile.dart';
 
@@ -7,11 +8,9 @@ class NavigationResponsive extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      if (constraints.maxWidth < 500) {
-        return NavigationMobile();
-      }
-      return NavigationDesktop();
-    },);
+    if (isMobileLayout(context)) {
+      return NavigationMobile();
+    }
+    return NavigationDesktop();
   }
 }

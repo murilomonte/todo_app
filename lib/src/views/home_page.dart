@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_provider/src/views/add_task/add_task_responsive.dart';
 import 'package:todo_provider/src/widgets/task_tab.dart';
 
 class HomePage extends StatelessWidget {
@@ -27,6 +28,18 @@ class HomePage extends StatelessWidget {
                   TaskTab(pending: true, title: 'Pending'),
                   TaskTab(pending: false, title: 'Completed'),
                 ],
+              ),
+              floatingActionButton: FloatingActionButton(
+                //color: Theme.of(context).colorScheme.onPrimary,
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AddTaskResponsive(),
+                  );
+                },
+                tooltip: ('Add task'),
+                backgroundColor: Theme.of(context).colorScheme.onPrimary,
+                child: Icon(Icons.add),
               ),
             ),
           );

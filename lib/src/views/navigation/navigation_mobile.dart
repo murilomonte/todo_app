@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:todo_provider/src/views/add_task/add_task_responsive.dart';
 import 'package:todo_provider/src/views/home_page.dart';
 import 'package:todo_provider/src/views/progress_page.dart';
 import 'package:todo_provider/src/views/settings_page.dart';
@@ -23,6 +22,7 @@ class _NavigationMobileState extends State<NavigationMobile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (value) => changeIndex(value),
         height: 70,
@@ -47,23 +47,7 @@ class _NavigationMobileState extends State<NavigationMobile> {
             icon: Icon(Icons.settings_outlined),
             label: 'Settings',
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: IconButton.filled(
-              // style: ButtonStyle(
-              //   backgroundColor: WidgetStatePropertyAll(Theme.of(context).colorScheme.onSecondary)
-              // ),
-              color: Theme.of(context).colorScheme.onPrimary,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AddTaskResponsive()),
-                );
-              },
-              tooltip: ('Add task'),
-              icon: Icon(Icons.add),
-            ),
-          ),
+          
         ],
       ),
       body: [HomePage(), ProgressPage(), SettingsPage()][selectedIndex],

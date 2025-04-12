@@ -54,12 +54,7 @@ class _NavigationDesktopState extends State<NavigationDesktop> {
             child: IconButton.filled(
               color: Theme.of(context).colorScheme.onPrimary,
               onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AddTaskResponsive();
-                  },
-                );
+                showDialog(context: context, builder: (context) => AddTaskResponsive(),);
               },
               tooltip: ('Add task'),
               icon: Icon(Icons.add),

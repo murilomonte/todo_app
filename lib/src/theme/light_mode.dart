@@ -33,7 +33,7 @@ ThemeData lightMode = ThemeData(
     brightness: Brightness.light,
       primary: Color(0xff405f90),
       surfaceTint: Color(0xff405f90),
-      onPrimary: Color(0xffffffff),
+      onPrimary: Color(0xffd6e3ff),
       primaryContainer: Color(0xffd6e3ff),
       onPrimaryContainer: Color(0xff264777),
       secondary: Color(0xff405f90),
