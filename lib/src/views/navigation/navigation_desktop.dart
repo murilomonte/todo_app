@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:todo_provider/src/views/add_task/add_task_responsive.dart';
 import 'package:todo_provider/src/views/home_page.dart';
 import 'package:todo_provider/src/views/progress_page.dart';
 import 'package:todo_provider/src/views/settings_page.dart';
@@ -49,17 +48,6 @@ class _NavigationDesktopState extends State<NavigationDesktop> {
           ],
           selectedIndex: selectedIndex,
           onDestinationSelected: (value) => changeIndex(value),
-          leading: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: IconButton.filled(
-              color: Theme.of(context).colorScheme.onPrimary,
-              onPressed: () {
-                showDialog(context: context, builder: (context) => AddTaskResponsive(),);
-              },
-              tooltip: ('Add task'),
-              icon: Icon(Icons.add),
-            ),
-          ),
         ),
         Expanded(
           child: [HomePage(), ProgressPage(), SettingsPage()][selectedIndex],

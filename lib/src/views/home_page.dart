@@ -29,6 +29,7 @@ class HomePage extends StatelessWidget {
                   TaskTab(pending: false, title: 'Completed'),
                 ],
               ),
+
               floatingActionButton: FloatingActionButton(
                 //color: Theme.of(context).colorScheme.onPrimary,
                 onPressed: () {
@@ -104,6 +105,18 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+          floatingActionButton: FloatingActionButton(
+            //color: Theme.of(context).colorScheme.onPrimary,
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => AddTaskResponsive(),
+              );
+            },
+            tooltip: ('Add task'),
+            backgroundColor: Theme.of(context).colorScheme.onPrimary,
+            child: Icon(Icons.add),
           ),
         );
       },
