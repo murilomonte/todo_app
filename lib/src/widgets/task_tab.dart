@@ -41,6 +41,7 @@ class TaskTab extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return TaskItem(
                         id: tasks[index].id,
+                        categoryId: tasks[index].categoryId,
                         title: tasks[index].title,
                         description: tasks[index].description,
                         points: tasks[index].points,

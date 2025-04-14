@@ -23,3 +23,4 @@ App feito para testar conhecimentos em flutter e demais tecnologias/conceitos, c
 - [ ] Notificações para tarefas.
 - [ ] Remover redundâncias na UI.
 - [ ] Melhoria da interface geral.
+- [ ] Realizar documentação.

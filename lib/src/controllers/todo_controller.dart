@@ -2,6 +2,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:todo_provider/src/models/category_model.dart';
 import 'package:todo_provider/src/models/task_model.dart';
 import 'package:todo_provider/src/services/database_service.dart';
 
@@ -12,11 +13,12 @@ class TodoController extends ChangeNotifier {
   List<TaskModel> _tasks = [];
   List<TaskModel> _pendingTasks = [];
   List<TaskModel> _completedTasks = [];
+  List<CategoryModel> _categoriesList = [];
   bool _isInitialized = false;
 
   List<TaskModel> get pendingTasks => _pendingTasks;
   List<TaskModel> get completedTasks => _completedTasks;
-  
+  List<CategoryModel> get categoriesList => _categoriesList;
 
   TodoController() {
     _initialize();
@@ -29,12 +31,14 @@ class TodoController extends ChangeNotifier {
     _isInitialized = true;
   }
 
+  // TODO: testar
   // Obtém as tasks
   Future<void> updateTaskList({silent = false}) async {
     _tasks = await _databaseService.getTasks();
+    _categoriesList = await _databaseService.getCategories();
     _updateFilteredTaskList();
     log('[run] -> updateTaskList');
-    
+
     // Deixa de atualizar a interface quando requisitado
     if (!silent) notifyListeners();
   }
@@ -74,8 +78,49 @@ class TodoController extends ChangeNotifier {
       _tasks[index] = _tasks[index].copyWith(status: status);
     }
 
-    _databaseService.updateTaskStatus(id, status);
+    await _databaseService.updateCategoryScore(
+      id: _tasks[index].categoryId,
+      score: _tasks[index].points,
+      taskStatus: status,
+    );
+
+    await _databaseService.updateTaskStatus(id, status);
+
     log('[run] -> toggleTask');
     await updateTaskList();
+  }
+
+  /*
+    Category methods
+  */
+  // TODO: testar
+
+  // Adiciona uma categoria
+  void addCategory({String? name}) async {
+    await _databaseService.addCategory(name: name);
+    log('[run] -> deleteCategory');
+    await updateTaskList();
+  }
+
+  // TODO: testar
+  // Deleta uma categoria
+  Future<void> deleteCategory(int id) async {
+    await _databaseService.deleteCategory(id);
+    log('[run] -> deleteCategory');
+    await updateTaskList();
+  }
+
+  // TODO: testar
+  // atualiza o score
+  Future<void> updateCategoryScore({
+    required int id,
+    required double score,
+    required int status,
+  }) async {
+    await _databaseService.updateCategoryScore(
+      id: id,
+      score: score,
+      taskStatus: status,
+    );
   }
 }

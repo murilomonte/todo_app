@@ -8,6 +8,7 @@ class TaskItem extends StatelessWidget {
   const TaskItem({
     super.key,
     required this.id,
+    required this.categoryId,
     required this.title,
     required this.description,
     required this.points,
@@ -15,6 +16,7 @@ class TaskItem extends StatelessWidget {
   });
 
   final int id;
+  final int categoryId;
   final String title;
   final String description;
   final double points;
@@ -28,7 +30,9 @@ class TaskItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: InkWell(
-                  customBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        customBorder: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
         onTap: () {
           showModalBottomSheet(
             showDragHandle: true,
@@ -60,11 +64,17 @@ class TaskItem extends StatelessWidget {
                       style: TextStyle(fontSize: 11),
                       overflow: TextOverflow.ellipsis,
                     )
-                    : Text('Click to show info.', style: TextStyle(fontSize: 11)),
+                    : Text(
+                      'Click to show info.',
+                      style: TextStyle(fontSize: 11),
+                    ),
             trailing: Checkbox(
               value: status == 1,
               onChanged: (value) {
-                context.read<TodoController>().toggleTask(id, status == 1 ? 0 : 1);
+                context.read<TodoController>().toggleTask(
+                  id,
+                  status == 1 ? 0 : 1,
+                );
                 context.read<UserController>().updateUserScore(points, status);
               },
             ),
