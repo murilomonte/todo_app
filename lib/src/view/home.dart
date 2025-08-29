@@ -1,5 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/src/provider/todo_provider.dart';
 import 'package:todo_app/src/view/add_task.dart';
 
 class Home extends StatelessWidget {
@@ -7,21 +11,27 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<TodoProvider>().getAllTask();
     return Scaffold(
       appBar: AppBar(
         title: Text('ToDo app', style: GoogleFonts.getFont('Lato')),
       ),
-      body: ListView(
-        children: [
-          ListTile(
-            title: Text('Task name', style: GoogleFonts.getFont('Lato')),
-            trailing: Checkbox(value: false, onChanged: (value) {}),
-          ),
-          ListTile(
-            title: Text('Task name', style: GoogleFonts.getFont('Lato')),
-            trailing: Checkbox(value: false, onChanged: (value) {}),
-          ),
-        ],
+      body: Consumer<TodoProvider>(
+        builder: (context, value, child) {
+          log('Lista: ${value.taskList}');
+          return ListView.builder(
+            itemCount: value.taskList.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(
+                  value.taskList[index].title,
+                  style: GoogleFonts.getFont('Lato'),
+                ),
+                trailing: Checkbox(value: false, onChanged: (value) {}),
+              );
+            },
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         shape: CircleBorder(),
