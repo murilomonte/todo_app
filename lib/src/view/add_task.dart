@@ -82,7 +82,6 @@ class _AddTaskState extends State<AddTask> {
                       Navigator.pop(context);
                     }
                   } catch (err) {
-                    log(err.toString());
                     if (context.mounted) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
