@@ -23,5 +23,6 @@ class TaskDao extends DatabaseAccessor<AppDatabase> with _$TaskDaoMixin {
       );
 
   // -> delete task
-  void deleteTask(int id) => delete(tasks).where((tbl) => tbl.id.isValue(id));
+  Future<int> deleteTask(int id) =>
+      (delete(tasks)..where((tbl) => tbl.id.equals(id))).go();
 }
