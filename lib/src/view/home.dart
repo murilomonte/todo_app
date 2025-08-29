@@ -6,13 +6,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/src/provider/todo_provider.dart';
 import 'package:todo_app/src/view/add_task.dart';
+import 'package:todo_app/src/widget/task_item.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
-    context.read<TodoProvider>().updateTaskList();
     return Scaffold(
       appBar: AppBar(
         title: Text('ToDo app', style: GoogleFonts.getFont('Lato')),
@@ -22,12 +22,19 @@ class Home extends StatelessWidget {
           return ListView.builder(
             itemCount: value.taskList.length,
             itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(
-                  value.taskList[index].title,
-                  style: GoogleFonts.getFont('Lato'),
-                ),
-                trailing: Checkbox(value: false, onChanged: (value) {}),
+              return TaskItem(
+                id: value.taskList[index].id,
+                title: value.taskList[index].title,
+                status: value.taskList[index].status,
+                onLongPress: (id) {
+                  context.read<TodoProvider>().deleteTask(id);
+                },
+                onCheck: (id, status) {
+                  context.read<TodoProvider>().updateTaskStatus(
+                    id,
+                    status ? false : true,
+                  );
+                },
               );
             },
           );
