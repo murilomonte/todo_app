@@ -30,6 +30,21 @@ class TodoProvider extends ChangeNotifier {
   }
 
   // -> toggle task
+  Future<int> updateTaskStatus(int id, bool isDone) async {
+    try {
+      int result = await db.taskDao.updateTaskStatus(id, isDone);
+      return result;
+    } catch (err) {
+      rethrow;
+    }
+  }
 
   // -> delete task
+  void deleteTask(int id) async {
+    try {
+      db.taskDao.deleteTask(id);
+    } catch (errr) {
+      rethrow;
+    }
+  }
 }
