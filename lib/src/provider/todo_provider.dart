@@ -1,28 +1,35 @@
+// ignore: unused_import
 import 'dart:developer';
 
-import 'package:drift/drift.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/src/database/app_database.dart';
 
 class TodoProvider extends ChangeNotifier {
   List<Task> taskList = [];
+
+  // Getter para pendentes
+  // Getter para ja completadas
+
   final AppDatabase db = AppDatabase();
 
-  void getAllTask() async {
+  void updateTaskList() async {
     List<Task> result = await db.taskDao.getAllTask();
     taskList = result;
+    log('updateTaskList');
     notifyListeners();
   }
 
-  void addTask(TasksCompanion task) async {
-    await db.taskDao.addTask(task);
-    notifyListeners();
+  Future<int> addTask(TasksCompanion task) async {
+    try {
+      int result = await db.taskDao.addTask(task);
+      updateTaskList();
+      return result;
+    } catch (err) {
+      rethrow;
+    }
   }
 
-  void addCustomTask() async {
-   int result = await db.taskDao.addTask(
-      TasksCompanion(status: Value(true), title: Value('Arrumar a cama')),
-    );
-    notifyListeners();
-  }
+  // -> toggle task
+
+  // -> delete task
 }

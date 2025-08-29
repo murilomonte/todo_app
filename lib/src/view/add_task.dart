@@ -1,7 +1,21 @@
-import 'package:flutter/material.dart';
+import 'dart:developer';
 
-class AddTask extends StatelessWidget {
+import 'package:drift/drift.dart' show Value;
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_app/src/database/app_database.dart';
+import 'package:todo_app/src/provider/todo_provider.dart';
+
+class AddTask extends StatefulWidget {
   const AddTask({super.key});
+
+  @override
+  State<AddTask> createState() => _AddTaskState();
+}
+
+class _AddTaskState extends State<AddTask> {
+  final _taskTitle = TextEditingController();
+  final _addTaskForm = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -10,15 +24,25 @@ class AddTask extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: Column(
-            spacing: 10,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Title', style: TextStyle(fontSize: 20),),
-              TextField(
-                decoration: InputDecoration(border: OutlineInputBorder()),
-              ),
-            ],
+          child: Form(
+            key: _addTaskForm,
+            child: Column(
+              spacing: 10,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Title', style: TextStyle(fontSize: 20)),
+                TextFormField(
+                  controller: _taskTitle,
+                  decoration: InputDecoration(border: OutlineInputBorder()),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Add task name';
+                    }
+                    return null;
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -42,7 +66,33 @@ class AddTask extends StatelessWidget {
               style: ButtonStyle(
                 fixedSize: WidgetStatePropertyAll(Size(100, 100)),
               ),
-              onPressed: () {},
+              onPressed: () async {
+                if (_addTaskForm.currentState!.validate()) {
+                  try {
+                    await context.read<TodoProvider>().addTask(
+                      TasksCompanion(
+                        title: Value(_taskTitle.text),
+                        status: Value(false),
+                      ),
+                    );
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Task adicionada!')),
+                      );
+                      Navigator.pop(context);
+                    }
+                  } catch (err) {
+                    log(err.toString());
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Não foi possível adicionar a task.'),
+                        ),
+                      );
+                    }
+                  }
+                }
+              },
               label: Text('Add'),
               icon: Icon(Icons.add),
             ),

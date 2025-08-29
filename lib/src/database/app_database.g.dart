@@ -29,7 +29,7 @@ class $TasksTable extends Tasks with TableInfo<$TasksTable, Task> {
     false,
     additionalChecks: GeneratedColumn.checkTextLength(
       minTextLength: 1,
-      maxTextLength: 20,
+      maxTextLength: 120,
     ),
     type: DriftSqlType.string,
     requiredDuringInsert: true,

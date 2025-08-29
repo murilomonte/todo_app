@@ -1,3 +1,4 @@
+// ignore: unused_import
 import 'dart:developer';
 
 import 'package:drift/drift.dart';
@@ -11,12 +12,7 @@ class TaskDao extends DatabaseAccessor<AppDatabase> with _$TaskDaoMixin {
   TaskDao(super.db);
   // TaskDao(AppDatabase db) : super(db);
 
-  Future<List<Task>> getAllTask() async {
-   List<Task> result = await select(tasks).get();
-   log('dao');
-   return result;
-   
-  }
+  Future<List<Task>> getAllTask() => select(tasks).get();
 
   Future<int> addTask(TasksCompanion task) => into(tasks).insert(task);
 }

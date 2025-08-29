@@ -1,3 +1,4 @@
+// ignore: unused_import
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -11,14 +12,13 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<TodoProvider>().getAllTask();
+    context.read<TodoProvider>().updateTaskList();
     return Scaffold(
       appBar: AppBar(
         title: Text('ToDo app', style: GoogleFonts.getFont('Lato')),
       ),
       body: Consumer<TodoProvider>(
         builder: (context, value, child) {
-          log('Lista: ${value.taskList}');
           return ListView.builder(
             itemCount: value.taskList.length,
             itemBuilder: (context, index) {
