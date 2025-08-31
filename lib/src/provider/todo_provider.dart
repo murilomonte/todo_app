@@ -9,6 +9,11 @@ class TodoProvider extends ChangeNotifier {
 
   bool isLoading = false;
 
+  List<Task> get pendingTasks =>
+      taskList.where((e) => e.status == false).toList();
+  List<Task> get completedTasks =>
+      taskList.where((e) => e.status == true).toList();
+
   TodoProvider() {
     _updateTaskList();
   }

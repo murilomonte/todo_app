@@ -23,17 +23,17 @@ class Home extends StatelessWidget {
             return Center(child: CircularProgressIndicator());
           }
 
-          if (value.taskList.isEmpty) {
+          if (value.pendingTasks.isEmpty) {
             return Center(child: Text('There are no tasks yet. Click the + to add one!'),);
           }
 
           return ListView.builder(
-            itemCount: value.taskList.length,
+            itemCount: value.pendingTasks.length,
             itemBuilder: (context, index) {
               return TaskItem(
-                id: value.taskList[index].id,
-                title: value.taskList[index].title,
-                status: value.taskList[index].status,
+                id: value.pendingTasks[index].id,
+                title: value.pendingTasks[index].title,
+                status: value.pendingTasks[index].status,
                 onLongPress: (id) {
                   context.read<TodoProvider>().deleteTask(id);
                 },
