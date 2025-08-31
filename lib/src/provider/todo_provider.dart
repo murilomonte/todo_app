@@ -7,6 +7,8 @@ import 'package:todo_app/src/data/database/app_database.dart';
 class TodoProvider extends ChangeNotifier {
   List<Task> taskList = [];
 
+  bool isLoading = false;
+
   TodoProvider() {
     _updateTaskList();
   }
@@ -17,8 +19,13 @@ class TodoProvider extends ChangeNotifier {
   final AppDatabase db = AppDatabase();
 
   void _updateTaskList() async {
+    isLoading = true;
+    notifyListeners();
+
     List<Task> result = await db.taskDao.getAllTask();
     taskList = result;
+
+    isLoading = false;
     notifyListeners();
   }
 

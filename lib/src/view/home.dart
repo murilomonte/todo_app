@@ -19,6 +19,14 @@ class Home extends StatelessWidget {
       ),
       body: Consumer<TodoProvider>(
         builder: (context, value, child) {
+          if (value.isLoading) {
+            return Center(child: CircularProgressIndicator());
+          }
+
+          if (value.taskList.isEmpty) {
+            return Center(child: Text('There are no tasks yet. Click the + to add one!'),);
+          }
+
           return ListView.builder(
             itemCount: value.taskList.length,
             itemBuilder: (context, index) {
