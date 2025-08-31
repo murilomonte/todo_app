@@ -2,8 +2,8 @@
 import 'dart:developer';
 
 import 'package:drift/drift.dart';
-import 'package:todo_app/src/database/app_database.dart';
-import 'package:todo_app/src/database/tables/tasks.dart';
+import 'package:todo_app/src/data/database/app_database.dart';
+import 'package:todo_app/src/data/database/tables/tasks.dart';
 
 part 'task_dao.g.dart';
 

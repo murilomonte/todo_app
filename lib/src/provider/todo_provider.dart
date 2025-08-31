@@ -2,7 +2,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:todo_app/src/database/app_database.dart';
+import 'package:todo_app/src/data/database/app_database.dart';
 
 class TodoProvider extends ChangeNotifier {
   List<Task> taskList = [];
