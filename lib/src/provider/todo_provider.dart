@@ -2,10 +2,17 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:todo_app/src/database/app_database.dart';
+import 'package:todo_app/src/data/database/app_database.dart';
 
 class TodoProvider extends ChangeNotifier {
   List<Task> taskList = [];
+
+  bool isLoading = false;
+
+  List<Task> get pendingTasks =>
+      taskList.where((e) => e.status == false).toList();
+  List<Task> get completedTasks =>
+      taskList.where((e) => e.status == true).toList();
 
   TodoProvider() {
     _updateTaskList();
@@ -17,8 +24,13 @@ class TodoProvider extends ChangeNotifier {
   final AppDatabase db = AppDatabase();
 
   void _updateTaskList() async {
+    isLoading = true;
+    notifyListeners();
+
     List<Task> result = await db.taskDao.getAllTask();
     taskList = result;
+
+    isLoading = false;
     notifyListeners();
   }
 

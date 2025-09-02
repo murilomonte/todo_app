@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:drift/drift.dart' show Value;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app/src/database/app_database.dart';
+import 'package:todo_app/src/data/database/app_database.dart';
 import 'package:todo_app/src/provider/todo_provider.dart';
 
 class AddTask extends StatefulWidget {
