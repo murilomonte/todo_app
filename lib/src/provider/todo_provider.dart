@@ -3,65 +3,91 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:todo_app/src/data/database/app_database.dart';
+import 'package:todo_app/src/data/repositories/task_repository.dart';
 
 class TodoProvider extends ChangeNotifier {
-  List<Task> taskList = [];
+  List<Task> _taskList = [];
 
   bool isLoading = false;
+  String? errorMessage;
 
   List<Task> get pendingTasks =>
-      taskList.where((e) => e.status == false).toList();
+      _taskList.where((e) => e.status == false).toList();
   List<Task> get completedTasks =>
-      taskList.where((e) => e.status == true).toList();
+      _taskList.where((e) => e.status == true).toList();
 
-  TodoProvider() {
+  TodoProvider({required this.repository}) {
     _updateTaskList();
   }
 
   // Getter para pendentes
   // Getter para ja completadas
-
-  final AppDatabase db = AppDatabase();
+  TaskRepository repository;
 
   void _updateTaskList() async {
     isLoading = true;
     notifyListeners();
 
-    List<Task> result = await db.taskDao.getAllTask();
-    taskList = result;
+    final result = await repository.getTasks();
+
+    switch (result) {
+      case Success(data: List<Task> taskList):
+        _taskList = taskList;
+        errorMessage = null;
+        break;
+
+      case Failure(message: String message):
+        errorMessage = message;
+        break;
+    }
 
     isLoading = false;
     notifyListeners();
   }
 
-  Future<int> addTask(TasksCompanion task) async {
-    try {
-      int result = await db.taskDao.addTask(task);
-      _updateTaskList();
-      return result;
-    } catch (err) {
-      rethrow;
+  Future<Result<void>> addTask(TasksCompanion task) async {
+    final result = await repository.addTask(task);
+
+    switch (result) {
+      case Success():
+        _updateTaskList();
+        return result;
+
+      case Failure(message: String message):
+        errorMessage = message;
+        notifyListeners();
+        return Failure(message);
     }
   }
 
   // -> toggle task
-  Future<int> updateTaskStatus(int id, bool isDone) async {
-    try {
-      int result = await db.taskDao.updateTaskStatus(id, isDone);
-      _updateTaskList();
-      return result;
-    } catch (err) {
-      rethrow;
+  void updateTaskStatus(int id, bool isDone) async {
+    final result = await repository.updateTaskStatus(id, isDone);
+
+    switch (result) {
+      case Success():
+        _updateTaskList();
+        break;
+
+      case Failure(message: String message):
+        errorMessage = message;
+        notifyListeners();
+        break;
     }
   }
 
   // -> delete task
   void deleteTask(int id) async {
-    try {
-      db.taskDao.deleteTask(id);
-      _updateTaskList();
-    } catch (err) {
-      rethrow;
+    final result = await repository.deleteTask(id);
+    switch (result) {
+      case Success():
+        _updateTaskList();
+        break;
+
+      case Failure(message: String message):
+        errorMessage = message;
+        notifyListeners();
+        break;
     }
   }
 }

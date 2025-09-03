@@ -1,3 +1,4 @@
+// ignore: unused_import
 import 'dart:developer';
 
 import 'package:drift/drift.dart' show Value;
@@ -68,27 +69,26 @@ class _AddTaskState extends State<AddTask> {
               ),
               onPressed: () async {
                 if (_addTaskForm.currentState!.validate()) {
-                  try {
-                    await context.read<TodoProvider>().addTask(
-                      TasksCompanion(
-                        title: Value(_taskTitle.text),
-                        status: Value(false),
+                  context.read<TodoProvider>().addTask(
+                    TasksCompanion(
+                      title: Value(_taskTitle.text),
+                      status: Value(false),
+                    ),
+                  );
+
+                  if (!context.mounted) return;
+
+                  if (context.read<TodoProvider>().errorMessage == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Task adicionada!')),
+                    );
+                    Navigator.pop(context);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Não foi possível adicionar a task.'),
                       ),
                     );
-                    if (context.mounted) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Task adicionada!')),
-                      );
-                      Navigator.pop(context);
-                    }
-                  } catch (err) {
-                    if (context.mounted) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Não foi possível adicionar a task.'),
-                        ),
-                      );
-                    }
                   }
                 }
               },
