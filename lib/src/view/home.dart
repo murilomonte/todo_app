@@ -24,7 +24,9 @@ class Home extends StatelessWidget {
           }
 
           if (value.pendingTasks.isEmpty) {
-            return Center(child: Text('There are no tasks yet. Click the + to add one!'),);
+            return Center(
+              child: Text('There are no tasks yet. Click the + to add one!'),
+            );
           }
 
           return ListView.builder(
